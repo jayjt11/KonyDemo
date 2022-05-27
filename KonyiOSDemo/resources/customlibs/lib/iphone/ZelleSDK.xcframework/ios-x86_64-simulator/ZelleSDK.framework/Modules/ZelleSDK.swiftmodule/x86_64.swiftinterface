@@ -1,0 +1,62 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.1 (swiftlang-1100.0.270.13 clang-1100.0.33.7)
+// swift-module-flags: -target x86_64-apple-ios13.1-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name ZelleSDK
+import AVFoundation
+import Contacts
+import ContactsUI
+import CoreLocation
+import Foundation
+import JavaScriptCore
+import Photos
+import QRCodeReader
+import Swift
+import UIKit
+import WebKit
+@_exported import ZelleSDK
+@objc public class Bridge : ObjectiveC.NSObject {
+  @objc public init(config: ZelleSDK.BridgeConfig, viewController: UIKit.UIViewController)
+  @objc public func view(frame: CoreGraphics.CGRect) -> ZelleSDK.BridgeView
+  @objc public func popup(anchor: UIKit.UIView) -> ZelleSDK.BridgePopup
+  @objc override dynamic public init()
+  @objc deinit
+}
+public struct Contact1 : Swift.Codable {
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+}
+@objc public class BridgeView : UIKit.UIView, WebKit.WKUIDelegate, WebKit.WKNavigationDelegate {
+  public var webView: WebKit.WKWebView?
+  public init(frame: CoreGraphics.CGRect, config: ZelleSDK.BridgeConfig, viewController: UIKit.UIViewController)
+  @objc override dynamic public func removeFromSuperview()
+  public func load()
+  public func evaluate(JS: Swift.String, completionHandler: ((Any?, Swift.Error?) -> Swift.Void)? = nil)
+  public func saveCachedContacts(cachedContacts: Swift.String)
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc deinit
+}
+@objc public class BridgePopup : UIKit.UIView {
+  public var bridgeView: ZelleSDK.BridgeView {
+    get
+    set
+  }
+  public init(anchor: UIKit.UIView, config: ZelleSDK.BridgeConfig, viewController: UIKit.UIViewController)
+  public func load()
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc deinit
+}
+@objc public protocol BridgeConfig {
+  @objc var url: Swift.String { get set }
+  @objc var preCacheContacts: Swift.Bool { get set }
+}
+public class RawConfig : ZelleSDK.BridgeConfig {
+  @objc public var url: Swift.String
+  @objc public var preCacheContacts: Swift.Bool
+  @objc deinit
+}
+@objc public class Zelle : ObjectiveC.NSObject, ZelleSDK.BridgeConfig {
+  @objc public var url: Swift.String
+  @objc public var preCacheContacts: Swift.Bool
+  @objc public init(applicationName: Swift.String? = nil, baseUrl: Swift.String, institutionId: Swift.String, product: Swift.String, ssoKey: Swift.String, title: Swift.String, parameters: [Swift.String : Swift.String])
+  @objc override dynamic public init()
+  @objc deinit
+}
